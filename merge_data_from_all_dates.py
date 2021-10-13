@@ -61,8 +61,11 @@ def get_file(pre, post, data_ls):
 
 
 if __name__ == "__main__":
+    """ This file is used to merge data information from all dates. we first proposed this idea and implemented it on
+    2021-06-30.
+    """
     abs_dir_path = os.path.dirname(os.path.realpath(__file__))  # abosolute path of the current .py file
-    data_dir: str = os.path.join(abs_dir_path, "data", "2021-06-08 to 2021-06-29")
+    data_dir: str = os.path.join(abs_dir_path, "data", "Shelf lifetime")
     post_dir = os.path.join(data_dir, "postprocessing")
     if os.path.isdir(post_dir):
         shutil.rmtree(post_dir)
@@ -83,6 +86,7 @@ if __name__ == "__main__":
                     df = pd.read_csv(file, names=['key', 'value'], index_col=0, delimiter="\t")  # 打开该文件
                     sheet.at[i, "Jsc (mAcm-2)"] = df.at["Jsc (mAcm-2):", 'value'] # first element in this series (only 1)
                     sheet.at[i, "Voc (V)"] = df.at["Voc (V):", 'value']
+                    sheet.at[i, "Fill Factor"] = df.at["Fill Factor:", 'value']
                     sheet.at[i, "Power Conversion Efficiency (%)"] = df.at["Power Conversion Efficiency (%):", 'value']
                 except FileNotFoundError:
                     print(f"找不到该文件：日期是{date}, 前缀是{pre}, 后缀是{post}")
