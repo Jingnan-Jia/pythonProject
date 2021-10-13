@@ -62,6 +62,7 @@ def argmin_positive(data):
 def jv(ex_ids, data_dir, target_dir):
     for ex_id in ex_ids:  # 对每一组实验都进行如下操作
         print("实验序号: ", ex_id)  # 打印一下电池序号
+        print("=============")
         fpath = os.path.join(data_dir, ex_id)  # 获取此次实验数据的存储的文件夹
         dir_ex_id = os.path.join(target_dir, ex_id)  # 将来生成新的数据的文件夹
         if not os.path.isdir(dir_ex_id):
@@ -298,6 +299,8 @@ def jv(ex_ids, data_dir, target_dir):
                 #                           y2_current_equal_0_corrected.rename("short_circuit_y_corrected")], axis=1)
 
                 # appended_df.rename(columns={df.columns[]: "Power", df.columns[31]:"Intensity"}, inplace=True)
+            else:
+                print("该电池不存在光强为100的测试数据，所以没法计算开路/短路/功率最大情况下的x，y。")
             # 把这几个表单放到一个列表中，将来保存为一个excel文件
             data_ls.append(sheet_df)
             v0_ds.append(sheet_v0)
